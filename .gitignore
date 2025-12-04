@@ -1,0 +1,76 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+env/
+venv.bak/
+
+# Python environment files
+.Python
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.pytest_cache/
+htmlcov/
+coverage.xml
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer artifacts
+*.egg
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Local Chroma DB (ignore DB file and any generated data inside `db`)
+db/chroma.sqlite3
+db/*/
+
+# Hugging Face / transformers / cached models
+.cache/
+transformers/
+huggingface/
+
+# Model and binary files
+*.pt
+*.bin
+*.ckpt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary / swap
+*.swp
+*.tmp
+
+# dotenv
+.env

@@ -1,5 +1,3 @@
-﻿# chatbotMontecristo
-
 # chatbotMontecristo
 
 Este repositorio contiene una API en FastAPI que consulta una base vectorial (Chroma) con embeddings
@@ -75,3 +73,4 @@ git rm --cached db/chroma.sqlite3
 git rm -r --cached venv
 git commit -m "Remove tracked local files; add .gitignore"
 ```
+

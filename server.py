@@ -17,7 +17,7 @@ collection = chroma.get_or_create_collection("catalogo")
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
-MODEL = os.getenv("OLLAMA_MODEL", "gemma3:1b")
+MODEL = os.getenv("OLLAMA_MODEL", "llama3.1:8b")
 
 class ChatRequest(BaseModel):
     query: str

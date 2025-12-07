@@ -1,17 +1,23 @@
+import os
+from dotenv import load_dotenv
 import chromadb
 import requests
+from requests.exceptions import RequestException
 from sentence_transformers import SentenceTransformer
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+
+# Cargar variables de entorno desde .env
+load_dotenv()
 
 app = FastAPI()
 
 chroma = chromadb.PersistentClient(path="./db")
-collection = chroma.get_collection("catalogo")
+collection = chroma.get_or_create_collection("catalogo")
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "llama3.1:8b"
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
+MODEL = os.getenv("OLLAMA_MODEL", "gemma3:1b")
 
 class ChatRequest(BaseModel):
     query: str
@@ -22,8 +28,12 @@ def ask_ollama(prompt):
         "prompt": prompt,
         "stream": False
     }
-    r = requests.post(OLLAMA_URL, json=data)
-    return r.json()["response"]
+    try:
+        r = requests.post(OLLAMA_URL, json=data, timeout=120)  # 2 minutos de timeout
+        r.raise_for_status()
+        return r.json().get("response", "")
+    except RequestException as e:
+        raise HTTPException(status_code=503, detail=f"Ollama no disponible en {OLLAMA_URL}: {str(e)}")
 
 @app.post("/chat")
 def chat(request: ChatRequest):
